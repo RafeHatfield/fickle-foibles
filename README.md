@@ -58,6 +58,38 @@ for f in 01_board 03_win 05_home 04_dark; do
 done
 ```
 
+## Pointing the domain at GitHub
+
+The domain is registered at Hover. Until its DNS points at GitHub, nothing is
+reachable: `CNAME` makes `rafehatfield.github.io/fickle-foibles/` 301 to
+`ficklefoibles.com`, so that address is not a fallback.
+
+At hover.com → **ficklefoibles.com** → **DNS**, remove the parking records
+(a single `@` A record and a `www` record, both `216.40.34.41`) and add:
+
+| Type | Host | Value |
+|---|---|---|
+| A | @ | 185.199.108.153 |
+| A | @ | 185.199.109.153 |
+| A | @ | 185.199.110.153 |
+| A | @ | 185.199.111.153 |
+| CNAME | www | rafehatfield.github.io. |
+
+The four A records are GitHub's published apex addresses. AAAA records
+(`2606:50c0:8000::153` through `...8003::153`) are optional and only add IPv6.
+
+Then, once it resolves, tick **Enforce HTTPS** in the repository's
+Settings → Pages. It stays greyed out until GitHub has issued the certificate,
+which takes a few minutes after DNS is correct — and the App Store URLs should
+be `https://`.
+
+Check it:
+
+```sh
+dig +short ficklefoibles.com          # expect the four 185.199.10x.153
+curl -sI https://ficklefoibles.com/dwindle/support/ | head -1   # expect 200
+```
+
 ## Checking it locally
 
 ```sh
