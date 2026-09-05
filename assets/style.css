@@ -1,0 +1,319 @@
+/* Fickle Foibles — shared styles.
+   Palette taken from Dwindle's own src/ui/theme/palette.gd so the site and the
+   game are the same object. Light is the default; dark is a real theme, not an
+   inversion. No JavaScript, no web fonts, no third-party requests: these pages
+   are App Store support and privacy URLs and must load anywhere, always. */
+
+:root {
+  --bg:          #f3ede1;
+  --panel:       #fefcf7;
+  --lip:         #e3dbcb;
+  --edge:        #ded4c0;
+  --text:        #2b2f34;
+  --text-soft:   #5f5a50;
+  --accent:      #33796c;
+  --accent-deep: #134840;
+  --accent-soft: rgba(51, 121, 108, 0.10);
+  --on-accent:   #f4faf8;
+  --shadow:      rgba(58, 50, 38, 0.16);
+  --shadow-lift: rgba(58, 50, 38, 0.24);
+  --felt:        #968d7c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:          #232c2a;
+    --panel:       #2e3937;
+    --lip:         #3d4a47;
+    --edge:        #3d4a47;
+    --text:        #ede6da;
+    --text-soft:   #b6bdb7;
+    --accent:      #57a797;
+    --accent-deep: #6fc4b2;
+    --accent-soft: rgba(87, 167, 151, 0.14);
+    --on-accent:   #0e1a17;
+    --shadow:      rgba(5, 16, 12, 0.40);
+    --shadow-lift: rgba(5, 16, 12, 0.55);
+    --felt:        #39433f;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------------------------------------- layout */
+
+.wrap { max-width: 46rem; margin: 0 auto; padding: 0 1.5rem; }
+.wrap--wide { max-width: 60rem; }
+main { padding-bottom: 4rem; }
+
+/* ---------------------------------------------------------------- header */
+
+.site-head { padding: 2rem 0 0; }
+
+.site-head a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  text-decoration: none;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+.site-head a:hover { color: var(--accent); }
+
+.mark {
+  width: 1.35rem; height: 1.35rem; flex: none;
+  border-radius: 0.3rem;
+  background: var(--accent);
+  position: relative;
+}
+
+.mark::after {
+  content: "";
+  position: absolute;
+  inset: 0.3rem 0.3rem auto auto;
+  width: 0.42rem; height: 0.42rem;
+  border-radius: 0.1rem;
+  background: var(--on-accent);
+}
+
+/* ---------------------------------------------------------------- type */
+
+h1 {
+  font-size: clamp(2.1rem, 6vw, 3.1rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 1.5rem 0 0;
+  font-weight: 650;
+}
+
+h2 {
+  font-size: 1.32rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 3rem 0 0.85rem;
+  font-weight: 640;
+}
+
+h3 { font-size: 1.02rem; margin: 2rem 0 0.4rem; font-weight: 640; }
+
+p { margin: 0 0 1.1rem; }
+
+.lede {
+  font-size: 1.2rem;
+  line-height: 1.55;
+  color: var(--text-soft);
+  margin-top: 1.1rem;
+  max-width: 34rem;
+}
+
+.eyebrow {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  font-weight: 640;
+  margin: 0;
+}
+
+.meta { font-size: 0.9rem; color: var(--text-soft); }
+
+a { color: var(--accent); text-underline-offset: 0.2em; }
+a:hover { color: var(--accent-deep); }
+
+ul { padding-left: 1.15rem; margin: 0 0 1.1rem; }
+li { margin-bottom: 0.5rem; }
+li::marker { color: var(--accent); }
+
+strong { font-weight: 640; }
+
+hr { border: 0; border-top: 1px solid var(--edge); margin: 3.5rem 0; }
+
+/* ---------------------------------------------------------------- panels */
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--edge);
+  border-bottom-width: 3px;
+  border-bottom-color: var(--lip);
+  border-radius: 0.85rem;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 2px 6px var(--shadow);
+}
+
+.panel > :last-child { margin-bottom: 0; }
+
+.game {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--panel);
+  border: 1px solid var(--edge);
+  border-bottom-width: 3px;
+  border-bottom-color: var(--lip);
+  border-radius: 0.9rem;
+  padding: 1.5rem 1.6rem;
+  box-shadow: 0 2px 6px var(--shadow);
+  transition: transform 160ms ease-out, box-shadow 160ms ease-out;
+}
+
+a.game:hover { transform: translateY(-2px); box-shadow: 0 6px 16px var(--shadow-lift); }
+
+.game h2 { margin: 0 0 0.25rem; font-size: 1.45rem; }
+.game p { margin: 0; color: var(--text-soft); }
+
+.game-list { display: grid; gap: 1.1rem; margin: 2.5rem 0 0; }
+
+.tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 650;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.35rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  vertical-align: 0.25em;
+  margin-left: 0.5rem;
+}
+
+.tag--quiet { background: transparent; border: 1px solid var(--edge); color: var(--text-soft); }
+
+/* ---------------------------------------------------------------- shots */
+
+.shots {
+  display: flex;
+  gap: 1.1rem;
+  margin: 2.5rem 0 0;
+  padding-bottom: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.shots img {
+  flex: none;
+  width: 15rem;
+  max-width: 62vw;
+  height: auto;
+  border-radius: 1.1rem;
+  border: 1px solid var(--edge);
+  box-shadow: 0 3px 12px var(--shadow);
+  scroll-snap-align: start;
+  background: var(--felt);
+}
+
+/* ---------------------------------------------------------------- rule diagram */
+
+.rule {
+  margin: 2rem 0;
+  padding: 1.75rem 1.5rem;
+  background: var(--felt);
+  border-radius: 0.9rem;
+  overflow-x: auto;
+}
+
+.rule-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-width: max-content;
+}
+
+.rule-row + .rule-row { margin-top: 1.25rem; }
+
+.pc {
+  width: 3.1rem; height: 4.35rem; flex: none;
+  border-radius: 0.32rem;
+  background: #fefcf7;
+  border-bottom: 2px solid #e3dbcb;
+  box-shadow: 0 2px 4px rgba(58, 50, 38, 0.3);
+  font-size: 1.05rem;
+  font-weight: 650;
+  line-height: 1;
+  color: #2f3439;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.12rem;
+}
+
+.pc--red { color: #b8433c; }
+.pc--out { outline: 2px solid #134840; outline-offset: -2px; }
+.pc--gone {
+  background: transparent;
+  border: 2px dashed rgba(253, 250, 242, 0.42);
+  box-shadow: none;
+}
+.pc small { font-size: 0.95rem; font-weight: 500; }
+
+.rule-arrow { color: #fdfaf2; font-size: 1.3rem; padding: 0 0.35rem; flex: none; }
+
+.rule-note {
+  margin: 1.1rem 0 0;
+  text-align: center;
+  color: #fdfaf2;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------------------------- buttons */
+
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: var(--on-accent);
+  text-decoration: none;
+  font-weight: 640;
+  padding: 0.7rem 1.4rem;
+  border-radius: 0.6rem;
+  box-shadow: 0 2px 5px var(--shadow);
+}
+
+.btn:hover { background: var(--accent-deep); color: var(--on-accent); }
+
+/* ---------------------------------------------------------------- Q&A */
+
+.qa { margin: 0 0 1.4rem; }
+.qa dt { font-weight: 640; margin-bottom: 0.15rem; }
+.qa dd { margin: 0 0 1.1rem; color: var(--text-soft); }
+
+/* ---------------------------------------------------------------- footer */
+
+.site-foot {
+  border-top: 1px solid var(--edge);
+  margin-top: 4rem;
+  padding: 1.75rem 0 3rem;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.site-foot p { margin: 0 0 0.4rem; }
+.site-foot nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.1rem; }
+
+/* ---------------------------------------------------------------- a11y */
+
+a:focus-visible, .game:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 0.3rem;
+}
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
